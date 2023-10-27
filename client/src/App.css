@@ -203,8 +203,8 @@ body {
 .cart-item {
   display: flex;
   gap: 15px;
-  transition: all 1s ease-out;
-  animation: appear 1s ease-out;
+  transition: all 0.6s ease-out;
+  animation: appear 0.6s ease-out;
 }
 
 .cart-item .left {
