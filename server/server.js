@@ -22,11 +22,6 @@ app.use(cors());
 //routes
 app.use("/api/v1/products", productRoutes);
 
-//rest api
-app.get("/", (req, res) => {
-  res.send("<h1>Welcome</h1>");
-});
-
 //PORT
 const PORT = process.env.PORT || 8080;
 
