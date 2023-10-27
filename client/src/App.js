@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import logo from "./assets/nike.png";
 import trash from "./assets/trash.png";
 import plus from "./assets/plus.png";
@@ -11,6 +11,8 @@ import { formatPrice } from "./helpers/format";
 function App() {
   const [shoes, setShoes] = useState([]);
   const [cart, setCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  // const tt = useRef();
 
   useEffect(() => {
     setShoes(data.shoes);
@@ -20,13 +22,18 @@ function App() {
     }
   }, []);
 
-  const totalPrice = useMemo(() => {
-    return cart.reduce((total, p) => total + p.price * p.quantity, 0);
-  }, [cart]);
+  // const totalPrice = useMemo(() => {
+  //   return cart.reduce((total, p) => total + p.price * p.quantity, 0);
+  // }, [cart]);
+
+  const caculateTotalPrice = (cart) => {
+    setTotalPrice(cart.reduce((total, p) => total + p.price * p.quantity, 0));
+  };
 
   const handleAddToCart = (product) => {
     const newCart = [...cart, { ...product, quantity: 1 }];
     localStorage.setItem("yourCart", JSON.stringify(newCart));
+    caculateTotalPrice(newCart);
     setCart(newCart);
   };
 
@@ -41,6 +48,7 @@ function App() {
       }
       return p;
     });
+    caculateTotalPrice(newCart);
     localStorage.setItem("yourCart", JSON.stringify(newCart));
     setCart(newCart);
   };
@@ -49,9 +57,10 @@ function App() {
     const cartItem = e.target.closest(".cart-item");
     cartItem.classList.add("fade-out");
     cartItem.classList.add("zoom-in");
+    const newCart = cart.filter((p) => p.id !== productId);
+    localStorage.setItem("yourCart", JSON.stringify(newCart));
+    caculateTotalPrice(newCart);
     setTimeout(() => {
-      const newCart = cart.filter((p) => p.id !== productId);
-      localStorage.setItem("yourCart", JSON.stringify(newCart));
       setCart(newCart);
     }, 1000);
   };
