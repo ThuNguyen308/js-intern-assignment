@@ -41,5 +41,5 @@ In Terminal VSCode:
 <ul>
     <li>Frontend: HTML, CSS, JS, ReactJs</li>
     <li>Backend: ExpressJs</li>
-    <li>Database: Mongo</li>
+    <li>Database: MongoDB</li>
 </ul>
