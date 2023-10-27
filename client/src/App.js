@@ -58,7 +58,7 @@ function App() {
     caculateTotalPrice(newCart);
     setTimeout(() => {
       setCart(newCart);
-    }, 1000);
+    }, 600);
   };
 
   return (
