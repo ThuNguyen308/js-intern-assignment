@@ -1,5 +1,6 @@
 import "./App.css";
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect } from "react";
+
 import logo from "./assets/nike.png";
 import trash from "./assets/trash.png";
 import plus from "./assets/plus.png";
@@ -12,7 +13,6 @@ function App() {
   const [shoes, setShoes] = useState([]);
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  // const tt = useRef();
 
   useEffect(() => {
     setShoes(data.shoes);
@@ -21,10 +21,6 @@ function App() {
       setCart(cartData);
     }
   }, []);
-
-  // const totalPrice = useMemo(() => {
-  //   return cart.reduce((total, p) => total + p.price * p.quantity, 0);
-  // }, [cart]);
 
   const caculateTotalPrice = (cart) => {
     setTotalPrice(cart.reduce((total, p) => total + p.price * p.quantity, 0));
@@ -77,7 +73,10 @@ function App() {
             <div className="product-list">
               {shoes.map((p) => (
                 <div className="product-item" key={p.id}>
-                  <div className="img">
+                  <div
+                    className="img"
+                    style={{ "--background-color": p.color }}
+                  >
                     <img src={p.image} alt={p.name} />
                   </div>
                   <h3 className="name">{p.name}</h3>
@@ -115,7 +114,10 @@ function App() {
               {cart.length > 0
                 ? cart.map((p) => (
                     <div className="cart-item" key={p.id}>
-                      <div className="left">
+                      <div
+                        className="left"
+                        style={{ "--background-color": p.color }}
+                      >
                         <img src={p.image} alt={p.name} className="img" />
                       </div>
                       <div className="right">
