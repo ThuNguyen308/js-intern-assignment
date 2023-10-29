@@ -1,12 +1,10 @@
 ﻿# js-intern-assignment (Golden Owl) - Nguyen Thi Minh Thu
-
-//I'm sorry Because time is limited, I haven't connected the API that I created to client-side yet. So please check APIs by Postman or something.
-
+ 
 <p>My application:
 <ul>
     <li>Frontend: <a href="https://shoes-store-ntmt.netlify.app/" alt="link demo">https://shoes-store-ntmt.netlify.app/</a>.</li>
     <li>Backend: 
-        <a href="https://shoes-store-ntmt.onrender.com/api/v1/products/" alt="link demo">https://shoes-store-ntmt.onrender.com/api/v1/products/ </a> with APIs: 
+        <a href="https://shoes-store-ntmt.onrender.com" alt="link demo">https://shoes-store-ntmt.onrender.com/api/v1/products/ </a> with APIs: 
         <ul>
             <li>GET /api/v1/products: Get all products</li>
             <li>GET /api/v1/products/:id: Get a product by id</li>
