@@ -7,7 +7,9 @@ import plus from "./assets/plus.png";
 import minus from "./assets/minus.png";
 import check from "./assets/check.png";
 import data from "./data/shoes.json";
+
 import { formatPrice } from "./helpers/format";
+import API from "./api.js";
 
 function App() {
   const [shoes, setShoes] = useState([]);
@@ -15,17 +17,26 @@ function App() {
   const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
-    setShoes(data.shoes);
+    API.get("/")
+      .then((response) => {
+        // setShoes(data.shoes);
+        setShoes(response.data.products);
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
     const cartData = JSON.parse(localStorage.getItem("yourCart"));
     if (cartData) {
       setCart(cartData);
     }
   }, []);
 
+  // caculate total Price in cart
   const caculateTotalPrice = (cart) => {
     setTotalPrice(cart.reduce((total, p) => total + p.price * p.quantity, 0));
   };
 
+  // handle add product to cart
   const handleAddToCart = (product) => {
     const newCart = [...cart, { ...product, quantity: 1 }];
     localStorage.setItem("yourCart", JSON.stringify(newCart));
@@ -33,13 +44,14 @@ function App() {
     setCart(newCart);
   };
 
+  // handle change product's quantity to cart
   const changeQuantity = (product, num, e) => {
     if (product.quantity + num === 0) {
-      handleRemoveFromCart(product.id, e);
+      handleRemoveFromCart(product._id, e);
       return;
     }
     const newCart = cart.map((p) => {
-      if (p.id === product.id) {
+      if (p._id === product._id) {
         return { ...p, quantity: p.quantity + num };
       }
       return p;
@@ -49,13 +61,15 @@ function App() {
     setCart(newCart);
   };
 
+  // handle remove product from cart
   const handleRemoveFromCart = (productId, e) => {
     const cartItem = e.target.closest(".cart-item");
     cartItem.classList.add("fade-out");
     cartItem.classList.add("zoom-in");
-    const newCart = cart.filter((p) => p.id !== productId);
+    const newCart = cart.filter((p) => p._id !== productId);
     localStorage.setItem("yourCart", JSON.stringify(newCart));
     caculateTotalPrice(newCart);
+
     setTimeout(() => {
       setCart(newCart);
     }, 600);
@@ -72,7 +86,7 @@ function App() {
           <div className="content">
             <div className="product-list">
               {shoes.map((p) => (
-                <div className="product-item" key={p.id}>
+                <div className="product-item" key={p._id}>
                   <div
                     className="img"
                     style={{ "--background-color": p.color }}
@@ -86,9 +100,9 @@ function App() {
                     <button
                       className="btn-add"
                       onClick={() => handleAddToCart(p)}
-                      disabled={cart.some((cp) => cp.id === p.id)}
+                      disabled={cart.some((cp) => cp._id === p._id)}
                     >
-                      {cart.some((cp) => cp.id === p.id) ? (
+                      {cart.some((cp) => cp._id === p._id) ? (
                         <img src={check} alt="added" className="icon-check" />
                       ) : (
                         <span>ADD TO CART</span>
@@ -113,7 +127,7 @@ function App() {
             <div className="cart-list">
               {cart.length > 0
                 ? cart.map((p) => (
-                    <div className="cart-item" key={p.id}>
+                    <div className="cart-item" key={p._id}>
                       <div
                         className="left"
                         style={{ "--background-color": p.color }}
@@ -142,7 +156,7 @@ function App() {
                           </div>
                           <button
                             className="btn-del"
-                            onClick={(e) => handleRemoveFromCart(p.id, e)}
+                            onClick={(e) => handleRemoveFromCart(p._id, e)}
                           >
                             <img src={trash} alt="delete" />
                           </button>
