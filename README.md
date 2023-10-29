@@ -1,6 +1,6 @@
 ﻿# js-intern-assignment (Golden Owl) - Nguyen Thi Minh Thu
 
-//I'm sorry Because time is limited, I haven't connected the API yet that I created to client-side.
+//I'm sorry Because time is limited, I haven't connected the API that I created to client-side yet. So please check APIs by Postman or something.
 
 <p>My application:
 <ul>
