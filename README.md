@@ -23,7 +23,7 @@ In Terminal VSCode:
 
 <ul>
     <li>1. cd client</li>
-    <li>2. add file .env includes: REACT_APP_API=https://shoes-store-ntmt.onrender.com/api/v1/products/
+    <li>2. add file .env includes: REACT_APP_API=https://shoes-store-ntmt.onrender.com/api/v1/products/api/v1/products/
     <li>3. npm start</li>
 </ul>
 
